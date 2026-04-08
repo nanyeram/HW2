@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const spinner = document.querySelector('.spinner');
     const resultSection = document.getElementById('result-section');
     const genreResult = document.getElementById('genre-result');
+    const recommendationList = document.getElementById('recommendation-list');
     
     let selectedFile = null;
 
@@ -91,8 +92,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             // Show result
-            // Dummy 모델일 경우 dummy: true 등 확인
-            genreResult.textContent = data.predicted_genre;
+            genreResult.textContent = data.predicted_genre.toUpperCase();
+            
+            // Render recommendations
+            recommendationList.innerHTML = '';
+            if (data.recommendations && data.recommendations.length > 0) {
+                data.recommendations.forEach(song => {
+                    const li = document.createElement('li');
+                    li.textContent = song;
+                    recommendationList.appendChild(li);
+                });
+            }
+
             resultSection.classList.remove('hidden');
             
         } catch (error) {

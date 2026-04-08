@@ -39,3 +39,22 @@ class MLService:
         # features를 2D 배열로 변환
         prediction = self.model.predict([features])
         return str(prediction[0])
+
+    def get_recommendations(self, genre: str) -> list:
+        """예측된 장르를 기반으로 추천 곡 리스트를 반환합니다."""
+        # 데모용 장르별 하드코딩 곡 목록
+        mock_recommendations = {
+            "pop": ["Michael Jackson - Billie Jean", "The Weeknd - Blinding Lights", "Dua Lipa - Don't Start Now"],
+            "rock": ["Queen - Bohemian Rhapsody", "AC/DC - Back In Black", "Nirvana - Smells Like Teen Spirit"],
+            "hiphop": ["Eminem - Lose Yourself", "Kendrick Lamar - HUMBLE.", "2Pac - California Love"],
+            "jazz": ["Miles Davis - So What", "Dave Brubeck - Take Five", "John Coltrane - Giant Steps"],
+            "classical": ["Beethoven - Symphony No. 5", "Mozart - Eine kleine Nachtmusik", "Bach - Cello Suite No. 1"],
+            "blues": ["B.B. King - The Thrill Is Gone", "Muddy Waters - Mannish Boy", "Stevie Ray Vaughan - Pride and Joy"],
+            "country": ["Johnny Cash - Ring of Fire", "Dolly Parton - Jolene", "Garth Brooks - Friends in Low Places"],
+            "disco": ["Bee Gees - Stayin' Alive", "Gloria Gaynor - I Will Survive", "Earth, Wind & Fire - September"],
+            "metal": ["Metallica - Enter Sandman", "Iron Maiden - The Trooper", "Black Sabbath - Paranoid"],
+            "reggae": ["Bob Marley - No Woman, No Cry", "Peter Tosh - Legalize It", "Jimmy Cliff - The Harder They Come"]
+        }
+        
+        # 키(장르)가 없을 경우 기본값 반환
+        return mock_recommendations.get(genre.lower(), ["추천 곡 정보가 없습니다."])

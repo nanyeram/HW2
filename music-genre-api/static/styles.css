@@ -101,7 +101,9 @@ h1 {
 .highlight {
     background: linear-gradient(135deg, var(--accent-glow-2), var(--accent-glow));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 header p {
@@ -248,4 +250,49 @@ button:disabled {
 .confidence span {
     color: white;
     font-weight: 600;
+}
+
+/* Recommendations */
+.recommendations-container {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--glass-border);
+    text-align: left;
+}
+
+.recommendations-container h4 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+#recommendation-list {
+    list-style: none;
+    padding: 0;
+}
+
+#recommendation-list li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    transition: transform 0.2s ease, background 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+#recommendation-list li::before {
+    content: '🎧';
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+
+#recommendation-list li:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.1);
+    border-left: 3px solid var(--accent-glow-2);
 }

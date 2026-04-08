@@ -25,12 +25,14 @@ def predict_from_mic():
         
         # 2. ML 모델을 통해 장르 예측
         predicted_genre = ml_service.predict_genre(audio_data)
+        recommendations = ml_service.get_recommendations(predicted_genre)
         
         return {
             "status": "success",
             "source": "microphone",
             "duration": "10s",
-            "predicted_genre": predicted_genre
+            "predicted_genre": predicted_genre,
+            "recommendations": recommendations
         }
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": str(e)})
@@ -52,12 +54,14 @@ async def predict_from_file(file: UploadFile = File(...)):
 
         # 예측
         predicted_genre = ml_service.predict_genre(y, sr)
+        recommendations = ml_service.get_recommendations(predicted_genre)
         
         return {
             "status": "success",
             "source": "upload",
             "filename": file.filename,
-            "predicted_genre": predicted_genre
+            "predicted_genre": predicted_genre,
+            "recommendations": recommendations
         }
     except Exception as e:
         return JSONResponse(status_code=500, content={"message": str(e)})
