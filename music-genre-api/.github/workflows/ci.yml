@@ -39,7 +39,7 @@ jobs:
           context: .
           push: true
           # <본인의 도커허브 ID>/music-genre-api 형태로 태그가 달리게 됩니다.
-          tags: ${{ secrets.DOCKER_USERNAME }}/music-genre-api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
           # 캐시 활용 (다음 빌드 속도가 대폭 향상됩니다)
-          cache-from: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/music-genre-api:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKER_USERNAME }}/music-genre-api:buildcache,mode=max
+          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:buildcache
+          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:buildcache,mode=max
