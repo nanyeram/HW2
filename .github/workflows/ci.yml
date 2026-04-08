@@ -36,7 +36,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./music-genre-api
           push: true
           # <본인의 도커허브 ID>/music-genre-api 형태로 태그가 달리게 됩니다.
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
