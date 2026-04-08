@@ -44,3 +44,28 @@ jobs:
           # 캐시 활용 (다음 빌드 속도가 대폭 향상됩니다)
           cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:buildcache,mode=max
+
+  deploy:
+    name: Deploy to Self-hosted Mac
+    needs: docker-build-push # 앞의 빌드-푸시 작업이 성공해야만 실행됩니다.
+    runs-on: self-hosted # 사용자님의 맥북에서 직접 쉘 명령어를 실행합니다.
+
+    steps:
+      - name: Login to Docker Hub
+        # 보안을 위해 CLI 로그인 방식을 사용합니다.
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Pull and Run Container
+        run: |
+          # 1. Docker Hub에서 가장 최신 이미지를 다운받기
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
+          
+          # 2. 만약 기존에 돌고 있던 컨테이너가 있다면 중지하고 삭제 (최초 실행 시 생기는 에러는 무시)
+          docker stop music-genre-api || true
+          docker rm music-genre-api || true
+          
+          # 3. 새로운 이미지로 컨테이너를 백그라운드(-d)로 실행하기
+          docker run -d \
+            --name music-genre-api \
+            -p 8000:8000 \
+            ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
