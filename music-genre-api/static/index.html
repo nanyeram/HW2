@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Music Genre Classifier</title>
+    <!-- 폰트: 현대적인 느낌의 Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <!-- 배경 애니메이션 그라데이션 오로라 -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    
+    <main class="glass-container">
+        <header>
+            <div class="badge">MLOps v1.0</div>
+            <h1>Sonic<span class="highlight">Sense</span></h1>
+            <p>AI가 당신의 음악 장르를 10초 만에 분석합니다.</p>
+        </header>
+
+        <section class="upload-section">
+            <div id="drop-zone" class="drop-zone">
+                <div class="icon-container">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
+                <h3>여기로 오디오 파일을 드래그 하세요</h3>
+                <p>또는 <span>파일 선택하기</span></p>
+                <input type="file" id="file-input" accept="audio/*">
+            </div>
+        </section>
+
+        <section class="action-section">
+            <button id="analyze-btn" disabled>
+                <span class="btn-text">분석 시작 (Analyze)</span>
+                <span class="spinner hidden"></span>
+            </button>
+        </section>
+
+        <!-- 결과 표시창 -->
+        <section id="result-section" class="result-section hidden">
+            <h3>분석 결과</h3>
+            <div class="genre-display">
+                <span id="genre-result">Pop</span>
+            </div>
+            <p class="confidence">신뢰도: <span id="confidence-score">98</span>%</p>
+        </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

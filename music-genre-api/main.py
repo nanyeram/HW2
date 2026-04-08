@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from api.routes import router
 
 app = FastAPI(
@@ -7,8 +9,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# 정적 파일 경로 마운트 (UI 에셋용)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 # API 라우터 등록
 app.include_router(router, prefix="/api/v1")
+
+# 루트 경로 접속 시 UI 파일 반환
+@app.get("/")
+async def root():
+    return FileResponse("static/index.html")
 
 if __name__ == "__main__":
     import uvicorn
