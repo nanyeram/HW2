@@ -57,15 +57,16 @@ jobs:
 
       - name: Pull and Run Container
         run: |
-          # 1. Docker Hub에서 가장 최신 이미지를 다운받기
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
+          # 1. Docker Hub에서 가장 최신 이미지를 다운받기 (맥북 호환성 옵션 추가)
+          docker pull --platform linux/amd64 ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
           
           # 2. 만약 기존에 돌고 있던 컨테이너가 있다면 중지하고 삭제 (최초 실행 시 생기는 에러는 무시)
           docker stop music-genre-api || true
           docker rm music-genre-api || true
           
-          # 3. 새로운 이미지로 컨테이너를 백그라운드(-d)로 실행하기
+          # 3. 새로운 이미지로 컨테이너를 백그라운드(-d)로 실행하기 (여기서도 호환성 옵션 추가)
           docker run -d \
+            --platform linux/amd64 \
             --name music-genre-api \
             -p 8000:8000 \
             ${{ secrets.DOCKERHUB_USERNAME }}/music-genre-api:latest
